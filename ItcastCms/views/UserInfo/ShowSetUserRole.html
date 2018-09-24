@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>为用户分配角色</title>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+        //提交表单
+        function SubForm() {
+            $("#setRoleForm").submit()
+
+        }
+        回调函数
+        function afterSet(data) {
+            window.parent.afterSet(data)
+        }
+
+    </script>
+</head>
+<body>
+为用户<span style="font-size: 14px; color: red; font-weight: bold">{{.userInfo.UserName}}</span>分配角色
+<form  data-ajax="true" data-ajax-method="post" data-ajax-success="afterSet" data-ajax-url="/Admin/UserInfo/SetUserRole" id="setRoleForm">
+    <input type="hidden" name="userId" value="{{.userInfo.Id}}" />
+
+{{range .allRoles}}
+{{if checkId $.userExtRoles .Id}}
+    <input type="checkbox" name="cba_{{.Id}}"  checked="checked" value="{{.Id}}">{{.RoleName}}
+{{else}}
+    <input type="checkbox" name="cba_{{.Id}}" value="{{.Id}}">{{.RoleName}}
+{{end}}
+{{end}}
+</form>
+</body>
+</html>
