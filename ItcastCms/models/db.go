@@ -16,18 +16,34 @@ type UserInfo struct {
 	AddDate   time.Time //添加日期
 	ModifDate time.Time //修改日期
 	DelFlag   int       //删除标记
-	Roles  []*RoleInfo `orm:"rel(m2m)"`
+	Roles     []*RoleInfo `orm:"rel(m2m)"`
 }
 
 //角色信息
 type RoleInfo struct {
 	Id        int
-	RoleName  string      `orm:"size(32)"`
+	RoleName  string        `orm:"size(32)"`
 	Remark    string
 	DelFlag   int
 	AddDate   time.Time
 	ModifDate time.Time
-	Users     []*UserInfo `orm:"reverse(many)"`
+	Users     []*UserInfo   `orm:"reverse(many)"`
+	Actions   []*ActionInfo `orm:"rel(m2m)"`
+}
+type ActionInfo struct {
+	Id             int
+	Remark         string
+	DelFlag        int
+	AddDate        time.Time
+	ModifDate      time.Time
+	Url            string
+	HttpMethod     string
+	ActionInfoName string
+	ActionTypeEnum int    //权限类型。
+	MenuIcon       string //图片地址
+	IconWidth      int
+	IconHeight     int
+	Roles          []*RoleInfo `orm:"reverse(many)"`
 }
 
 func init() {
@@ -48,7 +64,7 @@ func init() {
 	//注册数据库连接
 	orm.RegisterDataBase("default", "mysql", conn)
 
-	orm.RegisterModel(new(UserInfo),new(RoleInfo)) //注册模型
+	orm.RegisterModel(new(UserInfo), new(RoleInfo),new(ActionInfo)) //注册模型
 	orm.RunSyncdb("default", false, true)
 
 }

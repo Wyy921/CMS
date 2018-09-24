@@ -22,4 +22,14 @@ func init() {
 	beego.Router("/Admin/RoleInfo/ShowAddRole",&controllers.RoleInfoController{},"get:ShowAddRole")
 	beego.Router("/Admin/RoleInfo/AddRole",&controllers.RoleInfoController{},"post:AddRole")
 	beego.Router("/Admin/RoleInfo/GetRoleInfo",&controllers.RoleInfoController{},"post:GetRoleInfo")
+	beego.Router("/Admin/RoleInfo/ShowRoleAction",&controllers.RoleInfoController{},"get:ShowRoleAction")
+	beego.Router("/Admin/RoleInfo/SetRoleAction",&controllers.RoleInfoController{},"post:SetRoleAction")
+
+    //-------------------------------权限管理----------------------------------------->
+	beego.Router("/Admin/ActionInfo/Index",&controllers.ActionInfoCtroller{},"get:Index")
+	beego.Router("/Admin/ActionInfo/FileUp",&controllers.ActionInfoCtroller{},"post:FileUp")
+	beego.Router("/Admin/ActionInfo/AddAction",&controllers.ActionInfoCtroller{},"post:AddAction")
+	beego.Router("/Admin/ActionInfo/GetActionInfo",&controllers.ActionInfoCtroller{},"post:GetActionInfo")
+
+
 }
